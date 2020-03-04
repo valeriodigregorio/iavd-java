@@ -22,6 +22,6 @@ public class Utils {
             builder.append(line).append("\n");
         }
         reader.close();
-		return builder.toString();
+        return builder.toString();
     }
 }
