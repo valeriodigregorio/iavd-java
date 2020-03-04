@@ -1,18 +1,20 @@
 package com.swia.iavd;
 
-import com.swia.iavd.model.*;
+import com.swia.iavd.model.Affiliation;
+import com.swia.iavd.model.CardSystem;
+import com.swia.iavd.model.CommandCard;
+import com.swia.iavd.model.DeploymentCard;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CardTest {
 
     @Test
     void test_deployment_card() {
         DeploymentCard card = new DeploymentCard("Mercenary", "Zuckuss", true, true, "Gand Findsman", "iacp/15263");
-        assertEquals("Mercenary", card.getAffiliation());
+        assertEquals(Affiliation.MERCENARY, card.getAffiliation());
         assertEquals("Zuckuss", card.getName());
         assertTrue(card.isUnique());
         assertTrue(card.isElite());

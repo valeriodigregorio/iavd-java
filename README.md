@@ -19,7 +19,7 @@ IavdFile.save(os, cards)
 
 ## Load Vassal deck file
 ```
-Card deploymentCard = IavdFile.getCard(CardSystem.FFG, "Imperial", "Darth Vader", true, true, "Lord of the Sith");
+Card deploymentCard = IavdFile.getCard(CardSystem.FFG, Affiliation.IMPERIAL, "Darth Vader", true, true, "Lord of the Sith");
 Card commandCard = IavdFile.getCard(CardSystem.IACP, "Get Behind Me!");
 ```
 

@@ -32,7 +32,7 @@ public class CommandCard extends Card {
      */
     @Override
     public String getId() {
-        return CommandCard.getId(name);
+        return CommandCard.getId(getName());
     }
 
     /**

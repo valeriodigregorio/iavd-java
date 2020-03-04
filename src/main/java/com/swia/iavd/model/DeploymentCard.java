@@ -37,9 +37,9 @@ public class DeploymentCard extends Card {
      * @param description The description of the card.
      * @return A string representing the ID of the card.
      */
-    public static String getId(String affiliation, String name, boolean unique, boolean elite, String description) {
+    public static String getId(Affiliation affiliation, String name, boolean unique, boolean elite, String description) {
         StringBuilder builder = new StringBuilder();
-        builder.append(affiliation).append(" - ").append(name);
+        builder.append(affiliation.toString()).append(" - ").append(name);
         if (unique) {
             builder.append(", ").append(description);
         } else {
@@ -55,7 +55,7 @@ public class DeploymentCard extends Card {
      */
     @Override
     public String getId() {
-        return DeploymentCard.getId(affiliation, name, unique, elite, description);
+        return DeploymentCard.getId(getAffiliation(), getName(), isUnique(), isElite(), getDescription());
     }
 
     /**
@@ -63,8 +63,8 @@ public class DeploymentCard extends Card {
      *
      * @return The affiliation of the card.
      */
-    public String getAffiliation() {
-        return affiliation;
+    public Affiliation getAffiliation() {
+        return Affiliation.valueOf(affiliation.toUpperCase());
     }
 
     /**

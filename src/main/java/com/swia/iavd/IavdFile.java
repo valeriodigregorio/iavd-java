@@ -1,9 +1,6 @@
 package com.swia.iavd;
 
-import com.swia.iavd.model.Card;
-import com.swia.iavd.model.CardSystem;
-import com.swia.iavd.model.CommandCard;
-import com.swia.iavd.model.DeploymentCard;
+import com.swia.iavd.model.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,11 +28,15 @@ public class IavdFile {
         }
     }
 
-    public static Card getCard(CardSystem cardSystem, String affiliation, String name, boolean elite, boolean unique, String description) throws IllegalArgumentException {
+    public static Card getCard(CardSystem cardSystem, Affiliation affiliation, String name, boolean elite, boolean unique, String description) {
         return datasets[cardSystem.ordinal()].getCard(DeploymentCard.getId(affiliation, name, elite, unique, description));
     }
 
-    public static Card getCard(CardSystem cardSystem, String name) throws IllegalArgumentException {
+    public static Card getCard(CardSystem cardSystem, Affiliation affiliation, String name, boolean elite, boolean unique) {
+        return getCard(cardSystem, affiliation, name, elite, unique, null);
+    }
+
+    public static Card getCard(CardSystem cardSystem, String name) {
         return datasets[cardSystem.ordinal()].getCard(CommandCard.getId(name));
     }
 
