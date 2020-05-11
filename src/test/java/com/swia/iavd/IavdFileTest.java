@@ -88,4 +88,16 @@ class IavdFileTest {
             fail("IllegalArgumentException not expected");
         }
     }
+
+
+    @Test
+    void test_get_card_by_name() {
+        try {
+            DeploymentCard card = (DeploymentCard) IavdFile.getCard(CardSystem.IACP, Affiliation.MERCENARY, "Zuckuss", true, true, "Gand Findsman");
+            Card c = IavdFile.getCardByName(CardSystem.IACP, card.getId());
+            assertEquals(card, c);
+        } catch (IllegalArgumentException e) {
+            fail("IllegalArgumentException not expected");
+        }
+    }
 }

@@ -40,6 +40,10 @@ public class IavdFile {
         return datasets[cardSystem.ordinal()].getCard(CommandCard.getId(name));
     }
 
+    public static Card getCardByName(CardSystem cardSystem, String name) {
+        return datasets[cardSystem.ordinal()].getCard(name);
+    }
+
     private static Card getCard(int system, int id) {
         Card card = datasets[CardSystem.FFG.ordinal()].getCard(id);
         if (card != null && system == -1) {
