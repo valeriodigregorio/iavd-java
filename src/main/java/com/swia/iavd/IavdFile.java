@@ -28,20 +28,20 @@ public class IavdFile {
         }
     }
 
-    public static Card getCard(CardSystem cardSystem, Affiliation affiliation, String name, boolean elite, boolean unique, String description) {
-        return datasets[cardSystem.ordinal()].getCard(DeploymentCard.getId(affiliation, name, elite, unique, description));
+    public static DeploymentCard getDeploymentCard(CardSystem cardSystem, Affiliation affiliation, String name, boolean elite, boolean unique, String description) {
+        return (DeploymentCard) datasets[cardSystem.ordinal()].getCard(DeploymentCard.getId(affiliation, name, unique, elite, description));
     }
 
-    public static Card getCard(CardSystem cardSystem, Affiliation affiliation, String name, boolean elite, boolean unique) {
-        return getCard(cardSystem, affiliation, name, elite, unique, null);
+    public static DeploymentCard getDeploymentCard(CardSystem cardSystem, Affiliation affiliation, String name, boolean elite, boolean unique) {
+        return getDeploymentCard(cardSystem, affiliation, name, elite, unique, null);
     }
 
-    public static Card getCard(CardSystem cardSystem, String name) {
-        return datasets[cardSystem.ordinal()].getCard(CommandCard.getId(name));
+    public static CommandCard getCommandCard(CardSystem cardSystem, String name) {
+        return (CommandCard) datasets[cardSystem.ordinal()].getCard(CommandCard.getId(name));
     }
 
-    public static Card getCardByName(CardSystem cardSystem, String name) {
-        return datasets[cardSystem.ordinal()].getCard(name);
+    public static Card getCard(CardSystem cardSystem, String id) {
+        return datasets[cardSystem.ordinal()].getCard(id);
     }
 
     private static Card getCard(int system, int id) {
@@ -83,7 +83,8 @@ public class IavdFile {
         OutputStreamWriter writer = new OutputStreamWriter(stream);
         writer.append(IAVD_FILE_HEADER);
         for (Card card : cards) {
-            String resource = ResourceHelper.getResourceContent(card.getIavd());
+            String iavd = card.getIavd();
+            String resource = ResourceHelper.getResourceContent(iavd);
             writer.append(resource.substring(IAVD_FILE_HEADER.length()));
         }
         writer.close();

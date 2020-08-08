@@ -21,10 +21,10 @@ class ResourceHelperTest {
     void test_invalid_resource() throws IOException {
         try {
             ResourceHelper.getResourceContent("invalid_file");
-        } catch (NullPointerException e) {
+        } catch (IOException e) {
             return;
         }
-        fail("IllegalArgumentException expected");
+        fail("IOException expected");
     }
 
 }

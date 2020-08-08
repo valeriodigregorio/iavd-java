@@ -39,9 +39,9 @@ class IavdFileTest {
     @Test
     void test_army_ffg() throws IOException {
         ArrayList<Card> cards = new ArrayList<>();
-        cards.add(IavdFile.getCard(CardSystem.FFG, Affiliation.IMPERIAL, "Darth Vader", true, true, "Lord of the Sith"));
-        cards.add(IavdFile.getCard(CardSystem.FFG, Affiliation.IMPERIAL, "Driven by Hatred", true, false));
-        cards.add(IavdFile.getCard(CardSystem.FFG, Affiliation.IMPERIAL, "Imperial Officer", false, false));
+        cards.add(IavdFile.getDeploymentCard(CardSystem.FFG, Affiliation.IMPERIAL, "Darth Vader", true, true, "Lord of the Sith"));
+        cards.add(IavdFile.getDeploymentCard(CardSystem.FFG, Affiliation.IMPERIAL, "Driven by Hatred", false, true));
+        cards.add(IavdFile.getDeploymentCard(CardSystem.FFG, Affiliation.IMPERIAL, "Imperial Officer", false, false));
         cards.add(IavdFile.getCard(CardSystem.FFG, "Officer's Training"));
         test_parser(cards);
     }
@@ -49,24 +49,24 @@ class IavdFileTest {
     @Test
     void test_army_iacp() throws IOException {
         ArrayList<Card> cards = new ArrayList<>();
-        cards.add(IavdFile.getCard(CardSystem.IACP, Affiliation.IMPERIAL, "Darth Vader", true, true, "Lord of the Sith"));        // FFG
-        cards.add(IavdFile.getCard(CardSystem.IACP, Affiliation.IMPERIAL, "The Grand Inquisitor", true, true, "Sith Loyalist"));  // FFG remade by IACP
-        cards.add(IavdFile.getCard(CardSystem.IACP, Affiliation.MERCENARY, "Zuckuss", true, true, "Gand Findsman"));              // IACP only
-        cards.add(IavdFile.getCard(CardSystem.IACP, "Officer's Training")); // FFG
-        cards.add(IavdFile.getCard(CardSystem.IACP, "Parry"));              // FFG remade by IACP
-        cards.add(IavdFile.getCard(CardSystem.IACP, "Get Behind Me!"));     // IACP only
+        cards.add(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.IMPERIAL, "Darth Vader", true, true, "Lord of the Sith"));        // FFG
+        cards.add(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.IMPERIAL, "The Grand Inquisitor", true, true, "Sith Loyalist"));  // FFG remade by IACP
+        cards.add(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "Zuckuss", true, true, "Gand Findsman"));              // IACP only
+        cards.add(IavdFile.getCommandCard(CardSystem.IACP, "Officer's Training")); // FFG
+        cards.add(IavdFile.getCommandCard(CardSystem.IACP, "Parry"));              // FFG remade by IACP
+        cards.add(IavdFile.getCommandCard(CardSystem.IACP, "Get Behind Me!"));     // IACP only
         test_parser(cards);
     }
 
     @Test
     void test_invalid_card() {
-        assertNull(IavdFile.getCard(CardSystem.IACP, "UNKNOWN CARD"));
+        assertNull(IavdFile.getCommandCard(CardSystem.IACP, "UNKNOWN CARD"));
     }
 
     @Test
     void test_valid_deployment_card() {
         try {
-            DeploymentCard card = (DeploymentCard) IavdFile.getCard(CardSystem.IACP, Affiliation.MERCENARY, "Zuckuss", true, true, "Gand Findsman");
+            DeploymentCard card = (DeploymentCard) IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "Zuckuss", true, true, "Gand Findsman");
             assertEquals(Affiliation.MERCENARY, card.getAffiliation());
             assertEquals("Zuckuss", card.getName());
             assertTrue(card.isUnique());
@@ -93,8 +93,8 @@ class IavdFileTest {
     @Test
     void test_get_card_by_name() {
         try {
-            DeploymentCard card = (DeploymentCard) IavdFile.getCard(CardSystem.IACP, Affiliation.MERCENARY, "Zuckuss", true, true, "Gand Findsman");
-            Card c = IavdFile.getCardByName(CardSystem.IACP, card.getId());
+            DeploymentCard card = IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "Zuckuss", true, true, "Gand Findsman");
+            Card c = IavdFile.getCard(CardSystem.IACP, card.getId());
             assertEquals(card, c);
         } catch (IllegalArgumentException e) {
             fail("IllegalArgumentException not expected");
