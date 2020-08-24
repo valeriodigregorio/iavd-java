@@ -1,0 +1,3 @@
+[submodule "src/main/resources/iavd-dataset"]
+	path = src/main/resources/iavd-dataset
+	url = git@github.com:valeriodigregorio/iavd-dataset.git
