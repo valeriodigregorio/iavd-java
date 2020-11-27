@@ -16,6 +16,13 @@ public abstract class Card {
     public abstract String getId();
 
     /**
+     * Get the card type.
+     *
+     * @return The card type.
+     */
+    public abstract CardType getCardType();
+
+    /**
      * Get the card system of the card.
      *
      * @return The card system of the card.

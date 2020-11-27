@@ -41,7 +41,9 @@ public class DeploymentCard extends Card {
         StringBuilder builder = new StringBuilder();
         builder.append(affiliation.toString()).append(" - ").append(name);
         if (unique) {
-            builder.append(", ").append(description);
+            if (description != null) {
+                builder.append(", ").append(description);
+            }
         } else {
             builder.append(" (").append(elite ? "Elite" : "Regular").append(")");
         }
@@ -56,6 +58,16 @@ public class DeploymentCard extends Card {
     @Override
     public String getId() {
         return DeploymentCard.getId(getAffiliation(), getName(), isUnique(), isElite(), getDescription());
+    }
+
+    /**
+     * Get the card type.
+     *
+     * @return The card type.
+     */
+    @Override
+    public CardType getCardType() {
+        return CardType.DEPLOYMENT;
     }
 
     /**

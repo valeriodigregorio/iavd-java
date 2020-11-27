@@ -36,6 +36,16 @@ public class CommandCard extends Card {
     }
 
     /**
+     * Get the card type.
+     *
+     * @return The card type.
+     */
+    @Override
+    public CardType getCardType() {
+        return CardType.COMMAND;
+    }
+
+    /**
      * Get the name of the card.
      *
      * @return The name of the card.
