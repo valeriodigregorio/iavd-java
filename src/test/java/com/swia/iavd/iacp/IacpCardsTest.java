@@ -4,6 +4,7 @@ import com.swia.iavd.IavdFile;
 import com.swia.iavd.model.Affiliation;
 import com.swia.iavd.model.Card;
 import com.swia.iavd.model.CardSystem;
+import com.swia.iavd.model.CommandCard;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -60,11 +61,66 @@ public class IacpCardsTest {
         cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "The Mandalorian", true, true, "Renegade Hunter"));
         cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "IG-11", true, true, "To Nurse and Protect"));
         cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "Trandoshan Hunter", true, false));
-        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "Clan of Two", true, true));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "Clan of Two", false, true));
         cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Guild Programming"));
         cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Whistling Birds"));
 
         cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.NEUTRAL, "The Darksaber", true, true, "Weapon of the Ancients"));
+
+        try {
+            cards.validate();
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail("IOException not expected");
+        }
+    }
+
+    @Test
+    void test_season_5() {
+        CardList cards = new CardList();
+        cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Overwhelming Impact"));
+        cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Apex Predator"));
+        cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Feint"));
+        cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Rapid Recalibration"));
+        cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Rest in Peace"));
+
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.REBEL, "Cassian Andor", true, true, "Ruthless Agent"));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.REBEL, "K-2S0", true, true, "Rogue Security Droid"));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.REBEL, "Davith Elso", true, true, "Codename: \"Hawkbat\""));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.REBEL, "Murne Rin", true, true, "Deceptive Diplomat"));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.REBEL, "Luke Skywalker", true, true, "Jedi Knight"));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.REBEL, "Biv Bodhrik", true, true, "Fueled by Vengeance"));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.REBEL, "Fury of Kashyyyk", false, true));
+        cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Sniper Configuration"));
+        cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Blend In"));
+
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.IMPERIAL, "AT-ST", true, false));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.IMPERIAL, "Heavy Stormtrooper", true, false));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.IMPERIAL, "Captain Terro", true, true, "Wasteland Enforcer"));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.IMPERIAL, "Iden Versio", true, true, "Inferno Commander"));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.IMPERIAL, "Agent Kallus", true, true, "Tenacious Investigator"));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.IMPERIAL, "The General's Ranks", true, false));
+        cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Cavalry Charge"));
+        cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Static Pulse"));
+        cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Face Me!"));
+        cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Deploy the Garrison!"));
+
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "Wampa", true, false));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "Clawdite Shapeshifter", true, false));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "HK-47", true, true, "Faithful Meatbag Exterminator"));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "Doctor Aphra", true, true, "Rogue Archaeologist"));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "Dengar", true, true, "Ruthless Killer"));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "Zuckuss", true, true, "Gand Findsman"));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "Under Duress", false, true));
+        cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Definition: 'Love'"));
+        cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Windfall"));
+
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.NEUTRAL, "Mara Jade", true, true, "Lost Legend"));
+        cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Reactive Loyalties"));
+
+        CommandCard assassinate = IavdFile.getCommandCard(CardSystem.IACP, "Assassinate");
+        cards.addCard(assassinate);
+        assertTrue(assassinate.getIavd().startsWith("ffg/"));
 
         try {
             cards.validate();

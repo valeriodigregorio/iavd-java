@@ -18,17 +18,15 @@ class IavdFileTest {
         IavdFile.save(baos, cards);
         ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
         List<Card> loadedCards = IavdFile.load(bais);
+        if (cards == null) {
+            cards = new ArrayList<>();
+        }
         assertIterableEquals(cards, loadedCards);
     }
 
     @Test
     void test_null() throws IOException {
-        try {
-            test_parser(null);
-        } catch (NullPointerException e) {
-            return;
-        }
-        fail("IllegalArgumentException expected");
+        test_parser(null);
     }
 
     @Test

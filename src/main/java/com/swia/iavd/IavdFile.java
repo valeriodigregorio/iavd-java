@@ -82,10 +82,14 @@ public class IavdFile {
     public static void save(OutputStream stream, List<Card> cards) throws IOException {
         OutputStreamWriter writer = new OutputStreamWriter(stream);
         writer.append(IAVD_FILE_HEADER);
-        for (Card card : cards) {
-            String iavd = card.getIavd();
-            String resource = ResourceHelper.getResourceContent(iavd);
-            writer.append(resource.substring(IAVD_FILE_HEADER.length()));
+        if (cards != null) {
+            for (Card card : cards) {
+                if (card != null) {
+                    String iavd = card.getIavd();
+                    String resource = ResourceHelper.getResourceContent(iavd);
+                    writer.append(resource.substring(IAVD_FILE_HEADER.length()));
+                }
+            }
         }
         writer.close();
     }
