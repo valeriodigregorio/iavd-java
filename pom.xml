@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.swia.iavd</groupId>
     <artifactId>iavd-java</artifactId>
-    <version>5.1.0</version>
+    <version>6.1.0</version>
     <name>iavd-java</name>
 
     <build>

@@ -70,7 +70,7 @@ class IavdFileTest {
             assertTrue(card.isUnique());
             assertTrue(card.isElite());
             assertEquals("Gand Findsman", card.getDescription());
-            assertEquals("iacp/15263", card.getIavd());
+            assertEquals("iacp/15762", card.getIavd());
         } catch (IllegalArgumentException e) {
             fail("IllegalArgumentException not expected");
         }
