@@ -1,10 +1,7 @@
 package com.swia.iavd.iacp;
 
 import com.swia.iavd.IavdFile;
-import com.swia.iavd.model.Affiliation;
-import com.swia.iavd.model.Card;
-import com.swia.iavd.model.CardSystem;
-import com.swia.iavd.model.CommandCard;
+import com.swia.iavd.model.*;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -24,12 +21,13 @@ public class IacpCardsTest {
             super.add(card);
         }
 
-        void validate() throws IOException {
+        boolean validate() throws IOException {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             IavdFile.save(baos, this);
             ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
             List<Card> loadedCards = IavdFile.load(bais);
             assertIterableEquals(this, loadedCards);
+            return true;
         }
 
     }
@@ -67,12 +65,7 @@ public class IacpCardsTest {
 
         cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.NEUTRAL, "The Darksaber", true, true, "Weapon of the Ancients"));
 
-        try {
-            cards.validate();
-        } catch (IOException e) {
-            e.printStackTrace();
-            fail("IOException not expected");
-        }
+        assertDoesNotThrow(cards::validate);
     }
 
     @Test
@@ -106,7 +99,6 @@ public class IacpCardsTest {
         cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Deploy the Garrison!"));
 
         cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "Wampa", true, false));
-        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "Clawdite Shapeshifter", true, false));
         cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "HK-47", true, true, "Faithful Meatbag Exterminator"));
         cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "Doctor Aphra", true, true, "Rogue Archaeologist"));
         cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "Dengar", true, true, "Ruthless Killer"));
@@ -115,19 +107,60 @@ public class IacpCardsTest {
         cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Definition: 'Love'"));
         cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Windfall"));
 
+        DeploymentCard clawdite = IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "Clawdite Shapeshifter", false, false);
+        cards.addCard(clawdite);
+        assertTrue(clawdite.getIavd().startsWith("iacp/"));
+
+        clawdite = IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "Clawdite Shapeshifter", true, false);
+        cards.addCard(clawdite);
+        assertTrue(clawdite.getIavd().startsWith("iacp/"));
+
         cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.NEUTRAL, "Mara Jade", true, true, "Lost Legend"));
         cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Reactive Loyalties"));
 
         CommandCard assassinate = IavdFile.getCommandCard(CardSystem.IACP, "Assassinate");
         cards.addCard(assassinate);
-        assertTrue(assassinate.getIavd().startsWith("ffg/"));
+        assertTrue(assassinate.getIavd().startsWith("iacp/"));
 
-        try {
-            cards.validate();
-        } catch (IOException e) {
-            e.printStackTrace();
-            fail("IOException not expected");
-        }
+        assertDoesNotThrow(cards::validate);
+    }
+
+    @Test
+    void test_season_6() {
+        CommandCard deployTheGarrison = IavdFile.getCommandCard(CardSystem.IACP, "Deploy the Garrison!");
+        assertEquals("iacp/16068", deployTheGarrison.getIavd());
+
+        CommandCard coveringFire = IavdFile.getCommandCard(CardSystem.IACP, "Covering Fire");
+        assertEquals("iacp/10332", coveringFire.getIavd());
+
+        DeploymentCard koTunFeralo = IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.REBEL, "Ko-Tun Feralo", true, true, "Rebel Quartermaster");
+        assertTrue(koTunFeralo.isElite());
+
+        CardList cards = new CardList();
+
+        cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Honoring the Fallen"));
+        cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Expose Weakness"));
+        cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Palace Politics"));
+        cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Covering Fire"));
+        cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Ambush"));
+        cards.addCard(IavdFile.getCommandCard(CardSystem.IACP, "Demoralizing Monologue"));
+
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.REBEL, "CT-1701", true, true, "\"Wildfire\""));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.REBEL, "Cara Dune", true, true, "Dropper Veteran"));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.REBEL, "Z-6 Trooper", true, false));
+
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.IMPERIAL, "Flametrooper", true, false));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.IMPERIAL, "Snowtrooper", true, false));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.IMPERIAL, "Dark Trooper Mk III", true, false));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.IMPERIAL, "Dewback Rider", true, false));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.IMPERIAL, "Moff Gideon", true, true, "Ruthless War Criminal"));
+
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "Bib Fortuna", true, true, "Cunning Majordomo"));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "Migs Mayfeld", true, true, "Survivor of Burinin Konn"));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "The Mandalorian", true, true, "Rising Phoenix"));
+        cards.addCard(IavdFile.getDeploymentCard(CardSystem.IACP, Affiliation.MERCENARY, "First Strike", false, true));
+
+        assertDoesNotThrow(cards::validate);
     }
 
 }

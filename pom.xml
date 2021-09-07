@@ -4,8 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.swia.iavd</groupId>
     <artifactId>iavd-java</artifactId>
-    <version>5.1.0</version>
+    <version>6.3.0</version>
     <name>iavd-java</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
 
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
